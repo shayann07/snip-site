@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Snip: Ringtone & Audio Trimmer</title>
+  <meta name="description" content="Privacy Policy for Snip: Ringtone & Audio Trimmer. Local-first, zero analytics, zero network, zero tracking.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/snip-01-icon-512.png">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-badge">
+          <svg viewBox="0 0 24 24"><path d="M6 3a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V10l3.3 2.5L5 15.2V15a3 3 0 1 0 1.2 2.4l3.8-2.9 3.8 2.9A3 3 0 1 0 18 15v.2l-3.3-2.7L18 10V8.8A3 3 0 0 0 21 6a3 3 0 0 0-3-3 3 3 0 0 0-2.8 2H9.8A3 3 0 0 0 6 3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-12 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+        </div>
+        <span>Snip</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#specs">Specifications</a>
+        <a href="privacy.html" class="active">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="licenses.html">Licences</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/shayann07/snip-site/issues" class="btn btn-secondary btn-sm" target="_blank" rel="noopener">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container legal-page">
+    <div class="legal-header">
+      <div class="pill-tag"><span class="dot"></span> Local-First Guarantee</div>
+      <h1>Privacy Policy</h1>
+      <div class="meta">Last updated: September 16, 2026 · Effective Date: September 16, 2026</div>
+    </div>
+
+    <article class="legal-content">
+      <div class="callout-box">
+        <p><strong>The Core Promise:</strong> Snip is built from the ground up as a <strong>100% local-first, offline application</strong>. There is no network access code, no cloud synchronization, no user account system, no telemetry, and zero third-party analytics trackers. Your audio tracks, recordings, and contacts never leave your device.</p>
+      </div>
+
+      <h2>1. Information We Do Not Collect</h2>
+      <p>Unlike conventional media tools, Snip does not collect, process, or transmit personal data to external servers:</p>
+      <ul>
+        <li><strong>No Internet Permission:</strong> The application does not declare the Android <code>android.permission.INTERNET</code> permission. It is technically impossible for the application to initiate HTTP requests or transmit data over the internet.</li>
+        <li><strong>No User Identification:</strong> We do not ask for, generate, or store identifiers such as names, email addresses, phone numbers, advertising IDs, or hardware serial numbers.</li>
+        <li><strong>No Analytics or Tracking:</strong> We do not embed Firebase Analytics, Google Analytics, Mixpanel, AppsFlyer, Facebook SDK, or any other tracking or advertising SDKs.</li>
+        <li><strong>No Crash Telemetry:</strong> Crash logs and diagnostic data stay entirely on your device's local system log buffer (Logcat). We receive zero automated crash reports.</li>
+      </ul>
+
+      <h2>2. Android Permissions & Why We Need Them</h2>
+      <p>Snip requests only the minimum permissions required to inspect, edit, encode, and assign audio files directly on your Android device:</p>
+
+      <h3>A. Audio Storage (<code>READ_MEDIA_AUDIO</code> / <code>READ_EXTERNAL_STORAGE</code>)</h3>
+      <p>Allows Snip to scan your device's MediaStore index so you can browse and select songs, voice notes, and installed ringtones to trim. <strong>Usage is read-only for source files</strong>; Snip never modifies, deletes, or overwrites your original audio tracks.</p>
+
+      <h3>B. Modifying System Audio Settings (<code>WRITE_SETTINGS</code>)</h3>
+      <p>Required exclusively when you instruct Snip to set an exported audio clip as your default <strong>Phone Ringtone</strong>, <strong>Notification Sound</strong>, or <strong>Alarm</strong>. Android requires explicit system permission to alter system audio URI preferences.</p>
+
+      <h3>C. Contacts (<code>READ_CONTACTS</code> & <code>WRITE_CONTACTS</code>)</h3>
+      <p>Required exclusively if you choose the <strong>"One Contact Only"</strong> ringtone feature. This allows you to pick a contact from your address book and attach a specific ringtone URI to their contact record. Within the app, contact phone numbers are automatically masked (e.g. <code>98••• 41220</code>) for shoulder-surfing privacy. Contact data is read in-memory and is never persisted into any external database.</p>
+
+      <h3>D. Microphone (<code>RECORD_AUDIO</code>)</h3>
+      <p>Used only when you actively navigate to the built-in Sound Recorder tab and tap <em>"Start Recording"</em>. Captured audio is encoded directly to your device's local storage under <code>Music/Snip/recordings</code>.</p>
+
+      <h3>E. Foreground Services & Notifications (<code>FOREGROUND_SERVICE</code> & <code>POST_NOTIFICATIONS</code>)</h3>
+      <p>Used solely to keep the CPU active during multi-second native audio encoding (LAME MP3 / libvorbis OGG) and live microphone recording, preventing the operating system from terminating the process mid-operation. A persistent notification is shown only while an active job is running.</p>
+
+      <h2>3. Where Data is Stored</h2>
+      <p>All clips exported by Snip are saved to your local storage under the standard public directory:</p>
+      <pre><code>/storage/emulated/0/Music/Snip/</code></pre>
+      <p>Metadata regarding your saved clips (clip title, custom in/out boundaries, duration, and creation timestamp) is stored in a private local SQLite database powered by SQLDelight on your device. When you uninstall Snip or clear application storage, the internal database is removed. Exported audio files in your Music folder remain accessible to you unless explicitly deleted.</p>
+
+      <h2>4. Third-Party Code & Native Libraries</h2>
+      <p>Snip bundles native C audio libraries compiled with the Android NDK for high-performance audio synthesis and encoding:</p>
+      <ul>
+        <li><strong>LAME 3.100</strong> (MP3 encoder) — licensed under GNU LGPL v2.1.</li>
+        <li><strong>libogg 1.3.5 & libvorbis 1.3.7</strong> (OGG Vorbis encoder) — licensed under the Xiph BSD-style license.</li>
+      </ul>
+      <p>These libraries run entirely offline in local native process memory and contain zero network capabilities.</p>
+
+      <h2>5. Children's Privacy</h2>
+      <p>Snip is not directed at children. It collects no personal information from anyone, including children, because it has no means of sending information anywhere.</p>
+
+      <h2>6. Changes to this Policy</h2>
+      <p>Any updates to this Privacy Policy will be reflected on this page with an updated effective date. Because Snip has no network connection, no in-app telemetry will ever notify us of your identity.</p>
+
+      <h2>7. Contact</h2>
+      <p>If you have questions about this policy or about how Snip handles your data, contact the developer:</p>
+      <ul>
+        <li>Contact: <a href="https://github.com/shayann07/snip-site/issues" target="_blank" rel="noopener">github.com/shayann07/snip-site/issues</a></li>
+        <li>Website: <a href="https://shayann07.github.io/snip-site/">shayann07.github.io/snip-site</a></li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-brand">
+            <div class="brand-badge">
+              <svg viewBox="0 0 24 24"><path d="M6 3a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V10l3.3 2.5L5 15.2V15a3 3 0 1 0 1.2 2.4l3.8-2.9 3.8 2.9A3 3 0 1 0 18 15v.2l-3.3-2.7L18 10V8.8A3 3 0 0 0 21 6a3 3 0 0 0-3-3 3 3 0 0 0-2.8 2H9.8A3 3 0 0 0 6 3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-12 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+            </div>
+            <span>Snip</span>
+          </div>
+          <p>Local-first, millisecond-precise audio trimming and ringtone maker for Android.</p>
+        </div>
+        <div class="footer-nav">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#features">Features</a></li>
+              <li><a href="index.html#specs">Specifications</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Legal</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="licenses.html">Open-Source Licences</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Development</h5>
+            <ul>
+              <li><a href="https://github.com/shayann07/snip-site/issues" target="_blank" rel="noopener">Contact &amp; support</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Snip. All rights reserved. Includes open-source components &mdash; see <a href="licenses.html">Licences</a>.</div>
+        <div>No cookies. No tracking. 100% offline.</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
