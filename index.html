@@ -1,316 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snip: Ringtone & Audio Trimmer — Local-first Android Audio Editor</title>
-  <meta name="description" content="Trim any song to the part you love. Millisecond-precise, zero-click loops, native LAME MP3 & Vorbis OGG encoding, and instant contact ringtone assignment. 100% local, no analytics.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="assets/snip-01-icon-512.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Snip — trim any song to the part you love</title>
+<meta name="description" content="Snip is an Android audio trimmer and ringtone maker with a real waveform editor: millisecond zoom, zero-crossing snaps, seam preview. No account, no internet permission.">
+<meta name="theme-color" content="#0D0907">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/snip-01-icon-512.png">
+<link rel="preload" href="assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/editor.js" defer></script>
 </head>
 <body>
-  <!-- HEADER / NAV -->
-  <header class="navbar">
-    <div class="container">
-      <a href="index.html" class="nav-brand">
-        <div class="brand-badge">
-          <svg viewBox="0 0 24 24"><path d="M6 3a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V10l3.3 2.5L5 15.2V15a3 3 0 1 0 1.2 2.4l3.8-2.9 3.8 2.9A3 3 0 1 0 18 15v.2l-3.3-2.7L18 10V8.8A3 3 0 0 0 21 6a3 3 0 0 0-3-3 3 3 0 0 0-2.8 2H9.8A3 3 0 0 0 6 3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-12 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Snip, home"><img src="assets/icon.svg" alt="" width="28" height="28">Snip</a>
+    <nav aria-label="Legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="licenses.html">Licences</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="h1">
+    <div class="micro">Snip &middot; audio trimmer for Android</div>
+    <div class="hero-head">
+      <h1 id="h1">Trim any song to the part you love.</h1>
+      <div>
+        <p class="lede">Pick a track, drag two handles, hear the fade. Snip lands on the nearest zero crossing, so the loop never clicks.</p>
+        <div class="status">
+          <span class="soon">Coming soon to Google Play</span>
+          <span>Android 8.0 and up</span>
         </div>
-        <span>Snip</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#specs">Specifications</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="licenses.html">Licences</a>
-      </nav>
-      <div class="nav-actions">
-        <span class="btn btn-primary btn-sm" aria-disabled="true">Coming to Google Play</span>
       </div>
     </div>
-  </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="container">
-      <div class="pill-tag"><span class="dot"></span> Local-first Android Audio Trimmer</div>
-      <h1 class="hero-title">Trim any song to the <span class="highlight">part you love</span>.</h1>
-      <p class="hero-subtitle">Millisecond-precise waveform editing, zero-click loop auditioning, and instant ringtone assignment. 100% offline — no ads, no trackers, no accounts.</p>
-
-      <div class="hero-cta-group">
-        <span class="btn btn-primary btn-lg" aria-disabled="true">Coming soon to Google Play</span>
-        <a href="privacy.html" class="btn btn-secondary btn-lg">Read the privacy pledge</a>
+    <div class="editor" aria-label="Try the editor">
+      <div class="ed-bar">
+        <div class="ed-track">
+          <div class="t">Midnight in Sector 7</div>
+          <div class="m">Kite Season &middot; 3:48 &middot; demo track, synthesised in your browser</div>
+        </div>
+        <button class="chip" type="button" data-snap aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2.5" fill="none"/><path d="M9 12c1.5-6 3 6 4.5 0" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/></svg>
+          zero crossing
+        </button>
       </div>
 
-      <div class="hero-trust">
-        <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Zero Telemetry</span>
-        <span>•</span>
-        <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Native NDK Codecs</span>
-        <span>•</span>
-        <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Min SDK 26 (Android 8.0+)</span>
+      <div class="ed-stage" data-editor>
+        <canvas role="img" aria-label="Waveform with a selected region between two trim handles"></canvas>
+        <button class="handle-target" type="button" data-h="in" role="slider" aria-label="In point" aria-valuemin="0" aria-valuemax="228"></button>
+        <button class="handle-target" type="button" data-h="out" role="slider" aria-label="Out point" aria-valuemin="0" aria-valuemax="228"></button>
+        <div class="pill" aria-hidden="true"><span class="h">IN</span><span class="d"></span><span class="v"></span><span class="n"></span></div>
+      </div>
+      <div class="ruler" data-ruler aria-hidden="true"></div>
+
+      <div class="readout">
+        <div class="ph" data-ph>0:41.220</div>
+        <div class="view">view 8.26 s &middot; fades 0.35 s in, 0.60 s out</div>
       </div>
 
-      <div class="hero-showcase">
-        <img src="assets/snip-02-feature-graphic-1024x500.png" alt="Snip Feature Graphic" class="hero-feature-graphic" width="1024" height="500">
+      <div class="ed-controls">
+        <div class="tc" data-box-in><div class="k">IN</div><div class="v" data-in>0:41.220</div></div>
+        <div class="tc len"><div class="k">LENGTH</div><div class="v"><span data-len>4.860</span><small>s</small></div></div>
+        <div class="tc" data-box-out><div class="k">OUT</div><div class="v" data-out>0:46.080</div></div>
+        <div class="transport">
+          <button class="round" type="button" data-seam aria-pressed="false" aria-label="Loop the seam: the end of the clip straight into its start">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h5M15 12h5M11 5v14M13 5v14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/></svg>
+          </button>
+          <button class="play" type="button" data-play aria-pressed="false" aria-label="Play or pause the selection">
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8v14.4L19.5 12z" fill="currentColor"/></svg>
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4.5v15M16.5 4.5v15" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" fill="none"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <p class="ed-note">Drag a handle and let go &mdash; it moves to the nearest zero crossing and tells you by how much. Tap the wave to play from there. With a handle focused, <kbd>&larr;</kbd> <kbd>&rarr;</kbd> nudge 10&nbsp;ms, <kbd>Shift</kbd> 100&nbsp;ms. Same maths as the app.</p>
+    <div class="sr-only" aria-live="polite" data-live></div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="s1">
+    <div class="sec-head"><span class="num">01</span><h2 id="s1">Precision</h2><span class="rule"></span></div>
+    <p class="big">Trim to the beat, not to the second.</p>
+    <div class="three">
+      <div>
+        <h3>Down to the millisecond.</h3>
+        <p>Pinch the waveform down to an 80&nbsp;ms window. Nudge either handle in 10 or 100&nbsp;ms steps, or type the timecode if you already know it.</p>
+        <div class="spec">80 ms view &middot; &plusmn;10 ms &middot; m:ss.mmm</div>
+      </div>
+      <div>
+        <h3>It snaps to something real.</h3>
+        <p>Let go of a handle and it moves to the nearest zero crossing. Turn on the beat grid and it lands on the beat Snip found in the track.</p>
+        <div class="spec">&plusmn;8 ms search &middot; 40&ndash;220 bpm</div>
+      </div>
+      <div>
+        <h3>Hear the join before you save.</h3>
+        <p>Seam preview plays the last second before <span class="mono">out</span> straight into the first second after <span class="mono">in</span>. It&rsquo;s the only honest way to judge a loop.</p>
+        <div class="spec">1.1 s &rarr; 1.1 s, looped</div>
       </div>
     </div>
   </section>
 
-  <!-- FOUR FEATURE PILLARS -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Precision Audio Engineering</div>
-        <h2 class="section-title">Built for listeners who care about the cut.</h2>
-        <p class="section-description">Most ringtone makers guess. Snip gives you sample-accurate tools, musical rhythm snapping, and native audiophile encoders.</p>
-      </div>
-
-      <div class="features-grid">
-        <!-- Feature 1 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-          </div>
-          <h3>Trim to the beat, not to the second</h3>
-          <p>Pinch-to-zoom into millisecond resolutions. Dual tactile handles automatically snap to waveform zero-crossings to eliminate audible clicks, plus automatic tempo (BPM) beat quantization.</p>
-          <div class="feature-tag">Zero-Crossing Detection</div>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-          </div>
-          <h3>Zero-click loop auditioning</h3>
-          <p>Hear how your ringtone loops before you commit. The dedicated seam-audition engine loops the transition between your OUT and IN boundaries with optional micro-fades for buttery smooth repeats.</p>
-          <div class="feature-tag">Real-Time Seam Preview</div>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          </div>
-          <h3>Audiophile NDK encoders</h3>
-          <p>Android doesn't ship an MP3 or Vorbis encoder. Snip vendors custom-compiled C builds of LAME 3.100 and libvorbis with full 16 KB ELF alignment. Export in MP3, OGG Vorbis, or M4A (AAC) up to 320 kbps.</p>
-          <div class="feature-tag">LAME + libvorbis Native</div>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-card">
-          <div class="feature-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          </div>
-          <h3>One-tap assignment &amp; privacy</h3>
-          <p>Assign your clip directly to your default ringtone, notification chime, alarm, or a specific contact with masked phone numbers. Your original audio file is never touched.</p>
-          <div class="feature-tag">Non-Destructive Editing</div>
-        </div>
-      </div>
+  <section class="section wrap" aria-labelledby="s2">
+    <div class="sec-head"><span class="num">02</span><h2 id="s2">The app</h2><span class="rule"></span></div>
+    <div class="shots">
+      <img src="assets/snip-03-editor-1080x1920.png" width="1080" height="1920" loading="lazy" alt="The editor: a waveform with in and out handles, the selection length, fades and snap controls.">
+      <img src="assets/snip-04-library-1080x1920.png" width="1080" height="1920" loading="lazy" alt="Choose a source: music, recordings and installed ringtones in one searchable list.">
+      <img src="assets/snip-05-assign-1080x1920.png" width="1080" height="1920" loading="lazy" alt="Use it as: default ringtone, alarm, notification sound, or one contact.">
+      <img src="assets/snip-06-clips-1080x1920.png" width="1080" height="1920" loading="lazy" alt="My clips: every clip you've made, with its format, size and where it's assigned.">
     </div>
   </section>
 
-  <!-- SCREENSHOT SHOWCASE -->
-  <section class="section" id="screenshots" style="background: var(--bg-dark);">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Visual Tour</div>
-        <h2 class="section-title">Designed for focus, crafted in dark espresso.</h2>
-        <p class="section-description">A dark-only interface with high contrast Banana Mania text and glowing Madder red bounds. Every screen optimized for one-handed thumb reach.</p>
+  <section class="section wrap" aria-labelledby="s3">
+    <div class="sec-head"><span class="num">03</span><h2 id="s3">Use it</h2><span class="rule"></span></div>
+    <div class="split">
+      <div class="copy">
+        <p class="big">Then make it your ringtone.</p>
+        <p>Export as MP3, M4A or OGG, then assign it in one tap &mdash; to every call, to your alarm, to notifications, or to one person&rsquo;s calls only. The track you started from is never touched.</p>
+        <div class="formats"><span>MP3</span><span>M4A</span><span>OGG</span><span>128&ndash;320 kbps</span><span>record your own</span></div>
       </div>
-
-      <div class="gallery-grid">
-        <!-- Frame 1 -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/snip-03-editor-1080x1920.png" alt="Snip Editor Screen" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="eyebrow">The Editor</div>
-            <h4>Trim to the beat, not to the second.</h4>
-            <p>Pinch to millisecond zoom. Handles snap to zero crossings.</p>
-          </div>
+      <div class="dest" role="list">
+        <div role="listitem">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5h8a1.5 1.5 0 011.5 1.5v12A1.5 1.5 0 0116 19.5H8A1.5 1.5 0 016.5 18V6A1.5 1.5 0 018 4.5z" stroke="currentColor" stroke-width="1.75" fill="none"/><path d="M10.5 16.5h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/></svg>
+          <div><b>Default ringtone</b><small>Every incoming call</small></div>
         </div>
-
-        <!-- Frame 2 -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/snip-04-library-1080x1920.png" alt="Snip Library Screen" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="eyebrow">Your Library</div>
-            <h4>Any song already on your phone.</h4>
-            <p>Music, recordings and installed ringtones in one clean list.</p>
-          </div>
+        <div role="listitem">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7" stroke="currentColor" stroke-width="1.75" fill="none"/><path d="M12 9.5V13l2.5 2M5 5l2.5 2M19 5l-2.5 2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/></svg>
+          <div><b>Alarm</b><small>Clock app alarms</small></div>
         </div>
-
-        <!-- Frame 3 -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/snip-05-assign-1080x1920.png" alt="Snip Assign Screen" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="eyebrow">One Tap</div>
-            <h4>Ringtone, alarm, or one contact.</h4>
-            <p>Assign it in place. Your source track is never touched.</p>
-          </div>
+        <div role="listitem">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 17.5c1.2-1.4 1.4-2.6 1.4-5.5 0-2.8 1.6-5 4.1-5s4.1 2.2 4.1 5c0 2.9.2 4.1 1.4 5.5z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" fill="none"/><path d="M10.5 20h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/></svg>
+          <div><b>Notification sound</b><small>Messages and alerts</small></div>
         </div>
-
-        <!-- Frame 4 -->
-        <div class="gallery-card">
-          <div class="gallery-img-wrap">
-            <img src="assets/snip-06-clips-1080x1920.png" alt="Snip Saved Clips Screen" loading="lazy">
-          </div>
-          <div class="gallery-caption">
-            <div class="eyebrow">My Clips</div>
-            <h4>Every cut you've ever made, kept.</h4>
-            <p>Re-open any clip at its exact in and out points.</p>
-          </div>
+        <div role="listitem">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3.5" stroke="currentColor" stroke-width="1.75" fill="none"/><path d="M5.5 19.5c0-3.3 2.9-5 6.5-5s6.5 1.7 6.5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" fill="none"/></svg>
+          <div><b>One contact only</b><small>Only their calls use the clip</small></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SPECIFICATIONS TABLE -->
-  <section class="section" id="specs">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Technical Architecture</div>
-        <h2 class="section-title">Engineered without compromises.</h2>
-        <p class="section-description">A multi-module Kotlin Multiplatform project using modern Jetpack Compose, SQLDelight, and NDK C audio toolchains.</p>
-      </div>
-
-      <div class="specs-table-wrapper">
-        <table class="specs-table">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Specification</th>
-              <th>Implementation Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Decoding Engine</strong></td>
-              <td class="mono">MP3, AAC, FLAC, OGG, WAV</td>
-              <td>Platform <code>MediaExtractor</code> + dedicated <code>MediaCodec</code> threads with PCM windowing</td>
-            </tr>
-            <tr>
-              <td><strong>MP3 Encoder</strong></td>
-              <td class="mono">LAME 3.100 (C via NDK)</td>
-              <td>CBR 128 / 192 / 256 / 320 kbps with ID3v2 tag generation</td>
-            </tr>
-            <tr>
-              <td><strong>OGG Encoder</strong></td>
-              <td class="mono">libvorbis 1.3.7 + libogg 1.3.5</td>
-              <td>Variable quality float encoding with Vorbis comment framing</td>
-            </tr>
-            <tr>
-              <td><strong>M4A Encoder</strong></td>
-              <td class="mono">MediaCodec AAC-LC</td>
-              <td>Hardware-accelerated with EMUI 9 / Kirin <code>csd-0</code> packet guards</td>
-            </tr>
-            <tr>
-              <td><strong>ELF Alignment</strong></td>
-              <td class="mono">16 KB Page Aligned (0x4000)</td>
-              <td>Fully compliant with Android 15+ 16 KB kernel page requirements</td>
-            </tr>
-            <tr>
-              <td><strong>Database</strong></td>
-              <td class="mono">SQLDelight + SQLite</td>
-              <td>Zero-reflection local clip metadata persistence</td>
-            </tr>
-            <tr>
-              <td><strong>UI Framework</strong></td>
-              <td class="mono">Compose Multiplatform</td>
-              <td>Imperative playhead canvas, 60 fps Kirin 710 benchmarked drag physics</td>
-            </tr>
-            <tr>
-              <td><strong>OS Compatibility</strong></td>
-              <td class="mono">Android 8.0+ (API 26 to 37)</td>
-              <td>Tested on Huawei Y9 2019 (EMUI 9) and Pixel 10 Pro XL</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <section class="section wrap" aria-labelledby="s4">
+    <div class="sec-head"><span class="num">04</span><h2 id="s4">What it doesn&rsquo;t do</h2><span class="rule"></span></div>
+    <ul class="nots">
+      <li><div>No account.<span>Open it and start trimming. There is nothing to sign up for.</span></div></li>
+      <li><div>No internet permission.<span>Snip doesn&rsquo;t ask Android for network access, so it can&rsquo;t send anything anywhere.</span></div></li>
+      <li><div>No analytics, no ads, no crash reporter.<span>Nothing in the app watches what you do.</span></div></li>
+      <li><div>It never edits your original file.<span>Snip reads the track and writes a new clip beside it.</span></div></li>
+    </ul>
+    <div class="after">
+      <span class="mono">Clips are saved to /Music/Snip and stay there if you uninstall.</span>
+      <a href="privacy.html">Read the privacy policy</a>
     </div>
   </section>
+</main>
 
-  <!-- PRIVACY BANNER -->
-  <section class="section">
-    <div class="container">
-      <div class="privacy-banner">
-        <div class="privacy-content">
-          <div class="pill-tag"><span class="dot"></span> The Snip Privacy Pledge</div>
-          <h3>Your music belongs on your phone. Not on our servers.</h3>
-          <p>Most audio utilities send analytics, crash logs, or compressed audio to cloud endpoints. Snip doesn't even have the permission to talk to the internet.</p>
-          <a href="privacy.html" class="btn btn-secondary">Read Full Privacy Policy</a>
-        </div>
-        <ul class="privacy-points">
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            <span>No <code>INTERNET</code> permission in manifest</span>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            <span>Zero third-party analytics or crash trackers</span>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            <span>Contact phone numbers masked in memory</span>
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            <span>Original source files never modified</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="nav-brand">
-            <div class="brand-badge">
-              <svg viewBox="0 0 24 24"><path d="M6 3a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8V10l3.3 2.5L5 15.2V15a3 3 0 1 0 1.2 2.4l3.8-2.9 3.8 2.9A3 3 0 1 0 18 15v.2l-3.3-2.7L18 10V8.8A3 3 0 0 0 21 6a3 3 0 0 0-3-3 3 3 0 0 0-2.8 2H9.8A3 3 0 0 0 6 3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-12 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
-            </div>
-            <span>Snip</span>
-          </div>
-          <p>Local-first, millisecond-precise audio trimming and ringtone maker for Android.</p>
-        </div>
-        <div class="footer-nav">
-          <div class="footer-col">
-            <h5>Navigation</h5>
-            <ul>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#screenshots">Screenshots</a></li>
-              <li><a href="#specs">Specifications</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h5>Legal</h5>
-            <ul>
-              <li><a href="privacy.html">Privacy Policy</a></li>
-              <li><a href="terms.html">Terms of Service</a></li>
-              <li><a href="licenses.html">Open-Source Licences</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h5>Development</h5>
-            <ul>
-              <li><a href="https://github.com/shayann07/snip-site/issues" target="_blank" rel="noopener">Contact &amp; support</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>&copy; 2026 Snip. All rights reserved. Includes open-source components &mdash; see <a href="licenses.html">Licences</a>.</div>
-        <div>No cookies. No tracking. 100% offline.</div>
-      </div>
-    </div>
-  </footer>
+<footer class="foot">
+  <div class="wrap">
+    <p>Snip &middot; &copy; 2026 &middot; All rights reserved.<br>This page sets no cookies and loads nothing from anywhere else.</p>
+    <nav aria-label="Footer">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="licenses.html">Licences</a>
+      <a href="https://github.com/shayann07/snip-site/issues">Contact</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
